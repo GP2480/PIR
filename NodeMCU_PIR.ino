@@ -1,11 +1,11 @@
 /**
- * Projekt: PIR Bewegungsmelder mit NodeMCU V3
- * Beschreibung: Lässt die Onboard-LED 2x kurz blinken, wenn Bewegung erkannt wird.
+ * Projekt: PIR Bewegungsmelder mit NodeMCU V3 (Erweitert)
+ * Beschreibung: Lässt die Onboard-LED 5x kurz blinken, wenn Bewegung erkannt wird.
  */
 
 // Pin-Definitionen
 const int PIR_PIN = D1;       // PIR-Sensor ist mit GPIO D1 verbunden
-const int LED_PIN = LED_BUILTIN; // Onboard-LED der NodeMCU (ist meistens LOW-aktiv!)
+const int LED_PIN = LED_BUILTIN; // Onboard-LED der NodeMCU (ist LOW-aktiv!)
 
 // Variablen für den Sensorstatus
 int pirState = LOW;
@@ -19,7 +19,7 @@ void setup() {
   pinMode(PIR_PIN, INPUT);
   pinMode(LED_PIN, OUTPUT);
   
-  // LED initial ausschalten (Da LED_BUILTIN beim ESP8266 oft LOW-aktiv ist, schaltet HIGH sie aus)
+  // LED initial ausschalten (HIGH schaltet sie beim ESP8266 aus)
   digitalWrite(LED_PIN, HIGH); 
   
   Serial.println("System gestartet. Warte auf PIR-Stabilisierung...");
@@ -35,8 +35,8 @@ void loop() {
       Serial.println("Bewegung erkannt!");
       pirState = HIGH;
       
-      // 2 x kurz blinken
-      blinkLED(2, 150); 
+      // Von 2 auf 5 x kurz blinken geändert
+      blinkLED(5, 150); 
     }
   } else {
     if (pirState == HIGH) {
